@@ -1,9 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+  // Neutralize the top-level parent window check if running in iframes or proxies
+  if (window.parent && window.parent !== window) {
+      try {
+          // Force proxy frame mapping to think it's on a local origin
+          Object.defineProperty(window, 'origin', { get: function() { return 'https://deltarunesim.com'; } });
+      } catch(e) {}
+  }
+</script>
+
+<script>
+  // Overwrite the browser's redirect ability before boot.js loads
+  const rawAssign = window.location.assign;
+  const rawReplace = window.location.replace;
+
+  window.location.assign = function(url) {
+      if (url === 'about:blank') {
+          console.warn("Blocked anti-piracy redirect to about:blank!");
+          return; // Kill the action!
+      }
+      rawAssign.call(window.location, url);
+  };
+
+  window.location.replace = function(url) {
+      if (url === 'about:blank') {
+          console.warn("Blocked anti-piracy redirect to about:blank!");
+          return; // Kill the action!
+      }
+      rawReplace.call(window.location, url);
+  };
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
-<title>DELTARUNE Fight Simulator - Boss Fights and Boss Rush Online</title>
+<title>deltarune fight game</title>
 <meta name="description" content="Play 300+ DELTARUNE and UNDERTALE fights online, free: every chapter's bosses, JEVIL, Spamton NEO, Sans, a boss rush, autoplay and replays. Fan-made, no download.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="puskevi">
