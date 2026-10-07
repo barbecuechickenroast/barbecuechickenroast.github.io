@@ -2,37 +2,33 @@
 <html lang="en">
 <head>
 <script>
-  // Neutralize the top-level parent window check if running in iframes or proxies
   if (window.parent && window.parent !== window) {
       try {
-          // Force proxy frame mapping to think it's on a local origin
           Object.defineProperty(window, 'origin', { get: function() { return 'https://deltarunesim.com'; } });
       } catch(e) {}
   }
 </script>
 
 <script>
-  // Overwrite the browser's redirect ability before boot.js loads
   const rawAssign = window.location.assign;
   const rawReplace = window.location.replace;
 
   window.location.assign = function(url) {
       if (url === 'about:blank') {
-          console.warn("Blocked anti-piracy redirect to about:blank!");
-          return; // Kill the action!
+          console.warn("works");
+          return;
       }
       rawAssign.call(window.location, url);
   };
 
   window.location.replace = function(url) {
       if (url === 'about:blank') {
-          console.warn("Blocked anti-piracy redirect to about:blank!");
-          return; // Kill the action!
+          console.warn("works");
+          return;
       }
       rawReplace.call(window.location, url);
   };
 </script>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
 <title>deltarune fight game</title>
